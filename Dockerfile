@@ -27,10 +27,13 @@ RUN pip install plotchecker
 RUN pip install nose
 
 # Install nbgrader
-RUN pip install nbgrader
-
-# Install the nbgrader extensions
-RUN nbgrader extension install
+RUN pip install nbgrader --pre
 
 # Create nbgrader profile and add nbgrader config
 ADD nbgrader_config.py /etc/jupyter/nbgrader_config.py
+
+# Install the nbgrader extensions
+RUN jupyter nbextension install --sys-prefix --py nbgrader
+RUN jupyter nbextension enable --sys-prefix --py nbgrader
+RUN jupyter serverextension enable --sys-prefix --py nbgrader
+
