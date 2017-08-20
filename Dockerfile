@@ -1,4 +1,4 @@
-FROM jupyter/systemuser
+FROM jupyterhub/systemuser
 
 # Update pip
 RUN pip install --upgrade pip
@@ -26,11 +26,17 @@ RUN pip install plotchecker
 # Install nose
 RUN pip install nose
 
-# Install nbgrader
-RUN pip install nbgrader --pre
+# Install git
+RUN apt-get -y --no-install-recommends install git
 
-# Create nbgrader profile and add nbgrader config
-ADD nbgrader_config.py /etc/jupyter/nbgrader_config.py
+# Install nbgrader
+RUN pip install git+https://github.com/jupyter/nbgrader.git@bf2683a785d6b4d41e2cf1c70face94258fde5f7#egg=nbgrader
+
+# Ensure log dir exists
+RUN mkdir -m0755 -p /var/log/nbgrader/
+
+# Create mount point for exchange dir
+RUN mkdir -m0777 -p /srv/nbgrader/exchange/
 
 # Install the nbgrader extensions
 RUN jupyter nbextension install --sys-prefix --py nbgrader
