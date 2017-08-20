@@ -30,7 +30,7 @@ RUN pip install nose
 RUN apt-get -y --no-install-recommends install git
 
 # Install nbgrader
-RUN pip install git+https://github.com/jupyter/nbgrader.git@bf2683a785d6b4d41e2cf1c70face94258fde5f7#egg=nbgrader
+RUN pip install git+https://github.com/thotypous/nbgrader.git@4817cb1de5a4ef347fe26a04f762a5a53f4480f7#egg=nbgrader
 
 # Ensure log dir exists
 RUN mkdir -m0755 -p /var/log/nbgrader/
@@ -45,3 +45,5 @@ RUN jupyter serverextension enable --sys-prefix --py nbgrader
 
 # Set ipython to use inline matplotlib by default
 ADD ipython_config.py /etc/ipython/ipython_config.py
+
+ADD nbgrader_config.py /etc/jupyter/nbgrader_config.py
