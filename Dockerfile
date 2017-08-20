@@ -43,3 +43,5 @@ RUN jupyter nbextension install --sys-prefix --py nbgrader
 RUN jupyter nbextension enable --sys-prefix --py nbgrader
 RUN jupyter serverextension enable --sys-prefix --py nbgrader
 
+# Set ipython to use inline matplotlib by default
+ADD ipython_config.py /etc/ipython/ipython_config.py
